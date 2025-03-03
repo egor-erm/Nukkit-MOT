@@ -363,6 +363,7 @@ public class Item implements Cloneable, BlockID, ItemID, ItemNamespaceId, Protoc
             list[SUSPICIOUS_STEW] = ItemSuspiciousStew.class; //734
             list[HONEYCOMB] = ItemHoneycomb.class; //736
             list[HONEY_BOTTLE] = ItemHoneyBottle.class; //737
+            list[LODESTONE_COMPASS] = ItemLodestoneCompass.class; //741
             list[NETHERITE_INGOT] = ItemIngotNetherite.class; //742
             list[NETHERITE_SWORD] = ItemSwordNetherite.class; //743
             list[NETHERITE_SHOVEL] = ItemShovelNetherite.class; //744
@@ -393,6 +394,7 @@ public class Item implements Cloneable, BlockID, ItemID, ItemNamespaceId, Protoc
 
             list[MANGROVE_SIGN] = ItemMangroveSign.class; //1005
             list[BAMBOO_SIGN] = ItemBambooSign.class; //1006
+            list[CHERRY_SIGN] = ItemCherrySign.class; //1007
 
             for (int i = 0; i < 256; ++i) {
                 if (Block.list[i] != null) {
@@ -2048,7 +2050,13 @@ public class Item implements Cloneable, BlockID, ItemID, ItemNamespaceId, Protoc
      * @return 是否支持 whether supported
      */
     public boolean isSupportedOn(int protocolId) {
-        return true;
+        int itemId = this.getId();
+
+        if (itemId >= 0 && itemId <= 255) {
+            return true;
+        }
+
+        return RuntimeItems.getMapping(protocolId).isRegistered(itemId, this.getDamage());
     }
 
     /**
