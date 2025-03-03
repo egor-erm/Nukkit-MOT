@@ -146,7 +146,7 @@ public class BlockEntitySpawner extends BlockEntitySpawnable {
                         continue;
                     }
 
-                    CreatureSpawnEvent ev = new CreatureSpawnEvent(this.entityId, pos, CreatureSpawnEvent.SpawnReason.SPAWNER);
+                    CreatureSpawnEvent ev = new CreatureSpawnEvent(this.entityId, pos, CreatureSpawnEvent.SpawnReason.SPAWNER, null);
                     level.getServer().getPluginManager().callEvent(ev);
 
                     if (ev.isCancelled()) {
