@@ -3,6 +3,7 @@ package cn.nukkit.blockentity;
 import cn.nukkit.Player;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockID;
+import cn.nukkit.command.selector.args.impl.Type;
 import cn.nukkit.entity.BaseEntity;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.mob.EntityMob;
@@ -41,6 +42,7 @@ public class BlockEntitySpawner extends BlockEntitySpawnable {
     public static final String TAG_REQUIRED_PLAYER_RANGE = "RequiredPlayerRange";
     public static final String TAG_MINIMUM_SPAWN_COUNT = "MinimumSpawnerCount";
     public static final String TAG_MAXIMUM_SPAWN_COUNT = "MaximumSpawnerCount";
+    public static final String TAG_ENTITY_IDENTIFIER = "EntityIdentifier";
 
     public static final short SPAWN_RANGE = 4;
     public static final short MIN_SPAWN_DELAY = 200;
@@ -53,6 +55,9 @@ public class BlockEntitySpawner extends BlockEntitySpawnable {
     public BlockEntitySpawner(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
         this.entityId = this.namedTag.getInt(TAG_ENTITY_ID);
+        if (this.entityId == 0 && this.namedTag.contains(TAG_ENTITY_IDENTIFIER)) {
+            this.entityId = Type.ENTITY_TYPE2ID.get(this.namedTag.getString(TAG_ENTITY_IDENTIFIER));
+        }
     }
 
     @Override
